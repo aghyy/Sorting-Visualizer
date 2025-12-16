@@ -350,7 +350,14 @@ const Sort = forwardRef(({ algorithm, inputArray, hideControls, setParentIsRunni
           <p>{formatTime(timer)}</p>
         </div>
         <div className='sort-card-frame'>
-          <div className='sort-bar-div sort-bar-container sort-bar-card'>{bars}</div>
+          <div className='sort-bar-div sort-bar-container sort-bar-card'>
+            <div
+              className="bars-track"
+              style={{ width: array.length > 120 ? `${Math.min(280, array.length * 0.9)}%` : '100%' }}
+            >
+              {bars}
+            </div>
+          </div>
         </div>
         {
           !hideControls && (

@@ -1,157 +1,69 @@
 import React, { useEffect, useState } from 'react';
 import './NavBar.css';
-import { IoCaretDownOutline, IoInformationCircleOutline } from "react-icons/io5";
+import { IoMenu, IoClose } from "react-icons/io5";
 import Logo from './Logo';
 import ToggleSwitch from './ToggleSwitch';
-import { handleAnimatedBg } from '../utils';
 
-const NavBar = ({ setSelectedOption, setBgKey, currentContainer, isBackgroundAnimated, setIsBackgroundAnimated }) => {
-    const [showSubMenuOuter, setShowSubMenuOuter] = useState(false);
-    const [showSubMenuInner, setShowSubMenuInner] = useState(false);
-    let timeoutOuter;
-    let timeoutInner;
-
-    const handleMouseLeaveOuter = () => {
-        timeoutOuter = setTimeout(() => {
-            setShowSubMenuOuter(false);
-        }, 300);
-    }
-
-    const handleMouseLeaveInner = () => {
-        timeoutInner = setTimeout(() => {
-            setShowSubMenuInner(false);
-        }, 300);
-    }
-
-    const handleMouseEnterOuter = () => {
-        clearTimeout(timeoutOuter);
-        setShowSubMenuOuter(true);
-    }
-
-    const handleMouseEnterInner = () => {
-        clearTimeout(timeoutInner);
-        setShowSubMenuInner(true);
-    }
-
-    const [showSubMenuOuterOptions, setShowSubMenuOuterOptions] = useState(false);
-    const [showSubMenuInnerOptions, setShowSubMenuInnerOptions] = useState(false);
-    let timeoutOuterOptions;
-    let timeoutInnerOptions;
-
-    const handleMouseLeaveOuterOptions = () => {
-        timeoutOuterOptions = setTimeout(() => {
-            setShowSubMenuOuterOptions(false);
-        }, 300);
-    }
-
-    const handleMouseLeaveInnerOptions = () => {
-        timeoutInnerOptions = setTimeout(() => {
-            setShowSubMenuInnerOptions(false);
-        }, 300);
-    }
-
-    const handleMouseEnterOuterOptions = () => {
-        clearTimeout(timeoutOuterOptions);
-        setShowSubMenuOuterOptions(true);
-    }
-
-    const handleMouseEnterInnerOptions = () => {
-        clearTimeout(timeoutInnerOptions);
-        setShowSubMenuInnerOptions(true);
-    }
-
-    const [isDotted, setIsDotted] = useState(false);
+const NavBar = ({ selectedOption, setSelectedOption }) => {
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const [is3d, setIs3d] = useState(localStorage.getItem('dimension') !== '2d');
 
     useEffect(() => {
-        if (isDotted) {
-            document.body.classList.add('dotted');
-            isBackgroundAnimated && handleAnimatedBg(isBackgroundAnimated, setIsBackgroundAnimated, setBgKey, currentContainer);
-        } else {
-            document.body.classList.remove('dotted');
+        if (!localStorage.getItem('dimension')) {
+            localStorage.setItem('dimension', '3d');
         }
-    }, [isDotted]);
+    }, []);
 
-    const [is2D, setIs2D] = useState(localStorage.getItem('dimension') === '3d');
-
-    const handleDimensionChange = () => {
-        localStorage.setItem('dimension', is2D ? '2d' : '3d');
+    const handleDimensionChange = (nextValue) => {
+        const prefers3d = typeof nextValue === 'boolean' ? nextValue : !is3d;
+        const nextDimension = prefers3d ? '3d' : '2d';
+        localStorage.setItem('dimension', nextDimension);
         window.dispatchEvent(new Event('storage'));
-        setIs2D(!is2D);
-    }
+        setIs3d(prefers3d);
+    };
+
+    const handleSelect = (option) => {
+        setSelectedOption(option);
+        setIsMenuOpen(false);
+    };
 
     return (
-        <nav>
-            <Logo />
+        <nav className="top-nav">
+            <div className="brand">
+                <Logo />
+                <div className="brand-text">
+                    <span className="brand-title">Sorting Visualizer</span>
+                    <span className="brand-subtitle">Algorithms playground</span>
+                </div>
+            </div>
 
-            <ul>
-                <li>
-                    <a href="#" onClick={() => setSelectedOption('RunAlgorithm')}>Run Algorithm</a>
-                </li>
-                <li>
-                    <a href="#" onClick={() => setSelectedOption('CompareAlgorithm')}>Compare Algorithms</a>
-                </li>
-                <li onMouseEnter={handleMouseEnterOuter} onMouseLeave={handleMouseLeaveOuter}>
-                    <a className="sort-algorithm-a" href="#">
-                        Sort Algorithms
-                        <IoCaretDownOutline />
-                    </a>
-                    {(showSubMenuOuter || showSubMenuInner) && (
-                        <ul className='inner-nav-sort' onMouseEnter={handleMouseEnterInner} onMouseLeave={handleMouseLeaveInner}>
-                            <li>
-                                <div className='inner-nav-a' onClick={() => setSelectedOption('InsertionSort')}>
-                                    <p>Insertion Sort</p>
-                                    <p className='nav-info-text'>Insertion Sort adds one item at a time to a sorted array.</p>
-                                </div>
-                            </li>
-                            <div className="vertical-nav-line"></div>
-                            <li>
-                                <div className='inner-nav-a' onClick={() => setSelectedOption('SelectionSort')}>
-                                    <p>Selection Sort</p>
-                                    <p className='nav-info-text'>Selection Sort repeatedly moves the smallest element to the front.</p>
-                                </div>
-                            </li>
-                            <div className="vertical-nav-line"></div>
-                            <li>
-                                <div className='inner-nav-a' onClick={() => setSelectedOption('BubbleSort')}>
-                                    <p>Bubble Sort</p>
-                                    <p className='nav-info-text'>Bubble Sort repeatedly swaps adjacent out-of-order elements.</p>
-                                </div>
-                            </li>
-                        </ul>
-                    )}
-                </li>
-                <li onMouseEnter={handleMouseEnterOuterOptions} onMouseLeave={handleMouseLeaveOuterOptions}>
-                    <a className="sort-algorithm-a" href="#">
-                        Options
-                        <IoCaretDownOutline />
-                    </a>
-                    {(showSubMenuOuterOptions || showSubMenuInnerOptions) && (
-                        <div className='inner-nav-sort nav-options' onMouseEnter={handleMouseEnterInnerOptions} onMouseLeave={handleMouseLeaveInnerOptions}>
-                            <div>
-                                <p>Animated Background</p>
-                                <ToggleSwitch isChecked={isBackgroundAnimated} setIsChecked={() => {
-                                    setIsDotted(false);
-                                    handleAnimatedBg(isBackgroundAnimated, setIsBackgroundAnimated, setBgKey, currentContainer);
-                                }} />
-                            </div>
-                            <div>
-                                <p>Dotted Background</p>
-                                <ToggleSwitch isChecked={isDotted} setIsChecked={() => { setIsDotted(!isDotted) }} />
-                            </div>
-                            <div>
-                                <div className='option-text'>
-                                    <p>2D/3D</p>
-                                    <IoInformationCircleOutline />
-                                    <div className='dim-info-tooltip'>
-                                        <p>If the array has more than 15 elements or any element exceeds 200, 2D will be enabled automatically.</p>
-                                    </div>
-                                </div>
-                                <ToggleSwitch isChecked={is2D} setIsChecked={handleDimensionChange} />
-                            </div>
-                        </div>
-                    )}
-                </li>
-            </ul>
+            <button className="nav-toggle" aria-label="Toggle menu" onClick={() => setIsMenuOpen(!isMenuOpen)}>
+                {isMenuOpen ? <IoClose /> : <IoMenu />}
+            </button>
+
+            <div className={`nav-links ${isMenuOpen ? 'open' : ''}`}>
+                <div className="nav-primary">
+                    <button className={selectedOption === 'RunAlgorithm' ? 'active' : ''} onClick={() => handleSelect('RunAlgorithm')}>Run</button>
+                    <button className={selectedOption === 'CompareAlgorithm' ? 'active' : ''} onClick={() => handleSelect('CompareAlgorithm')}>Compare</button>
+                </div>
+
+                <div className="nav-group">
+                    <p className="nav-label">Learn</p>
+                    <div className="pill-group">
+                        <button className={selectedOption === 'InsertionSort' ? 'active' : ''} onClick={() => handleSelect('InsertionSort')}>Insertion</button>
+                        <button className={selectedOption === 'SelectionSort' ? 'active' : ''} onClick={() => handleSelect('SelectionSort')}>Selection</button>
+                        <button className={selectedOption === 'BubbleSort' ? 'active' : ''} onClick={() => handleSelect('BubbleSort')}>Bubble</button>
+                    </div>
+                </div>
+
+                <div className="nav-group">
+                    <p className="nav-label">Display</p>
+                    <div className="toggle-row">
+                        <span>3D mode</span>
+                        <ToggleSwitch isChecked={is3d} setIsChecked={handleDimensionChange} />
+                    </div>
+                </div>
+            </div>
         </nav>
     );
 };

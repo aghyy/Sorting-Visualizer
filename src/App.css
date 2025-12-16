@@ -1,65 +1,79 @@
-.app-container {
-    position: absolute;
-    top: 120px;
-    left: 5em;
-    width: calc(100vw - 10em);
-    height: calc(100vh - 160px);
-    overflow-x: hidden;
-    overflow-y: scroll;
+.app-shell {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background: var(--bg);
 }
 
-.app-container::before,
-.app-container::after {
-    content: '';
-    position: fixed;
-    left: 80px;
-    right: 80px;
-    height: 20px;
-    pointer-events: none;
-    transition: opacity 0.3s;
+.app-main {
+    width: min(1200px, 100% - 32px);
+    margin: 0 auto;
+    padding: 32px 0 72px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    flex: 1;
 }
 
-.app-container::before {
-    top: 120px;
-    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.2), transparent);
-    opacity: 0;
+.page-header {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow-lg);
+    border-radius: var(--radius);
+    padding: 22px 24px;
+    display: grid;
+    gap: 8px;
 }
 
-.app-container::after {
-    bottom: 40px;
-    background: linear-gradient(to top, rgba(0, 0, 0, 0.2), transparent);
-    opacity: 0;
+.eyebrow {
+    color: var(--accent-strong);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-size: 12px;
+    margin: 0;
 }
 
-.app-container.shadow-top::before {
-    opacity: 1;
-    z-index: 999999999;
+.page-header h1 {
+    margin: 0;
+    font-size: clamp(24px, 3vw, 32px);
+    color: var(--text-primary);
+    letter-spacing: -0.01em;
 }
 
-.app-container.shadow-bottom::after {
-    opacity: 1;
-    z-index: 999999999;
+.lede {
+    margin: 0;
+    color: var(--text-muted);
+    line-height: 1.7;
+}
+
+.content-area {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
 }
 
 .timer {
     display: flex;
     justify-content: center;
     align-items: center;
-    font-family: monospace;
-    font-size: 20px;
-    margin-bottom: 20px;
+    font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+    font-size: 18px;
+    margin-bottom: 16px;
+    color: var(--text-muted);
 }
 
 .timer p {
     margin: 0;
 }
 
-@media (prefers-color-scheme: dark) {
-    .app-container::before {
-        background: linear-gradient(to bottom, rgba(255, 255, 255, 0.2), transparent);
+@media (max-width: 720px) {
+    .app-main {
+        padding: 20px 0 60px;
+        width: min(1100px, 100% - 20px);
     }
 
-    .app-container::after {
-        background: linear-gradient(to top, rgba(255, 255, 255, 0.2), transparent);
+    .page-header {
+        padding: 18px 16px;
     }
 }

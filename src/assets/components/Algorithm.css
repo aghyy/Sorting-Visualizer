@@ -1,64 +1,61 @@
 .card-wrapper {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 80vw;
-  height: 100%;
-  margin: auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 16px;
+  width: min(1100px, 100%);
+  margin: 0 auto;
+  align-items: stretch;
 }
 
 .card {
-  background: #ffffff;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  border: 1px solid #d1d1d1;
-  border-radius: 8px;
-  padding: 20px;
-  max-width: 400px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-md);
+  border-radius: var(--radius);
+  padding: 20px 22px;
   width: 100%;
-  margin: 20px;
   position: relative;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
-.card>label {
+.card > label {
   display: block;
   margin-bottom: 8px;
-  font-weight: bold;
+  font-weight: 700;
+  color: var(--text-primary);
 }
 
 .card select,
 .card input:not([type="checkbox"]) {
-  appearance: none;
   width: 100%;
-  padding: 10px;
-  margin-bottom: 16px;
-  border: 1px solid #ddd;
-  border-radius: 4px;
+  padding: 12px 14px;
+  margin-bottom: 14px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
   box-sizing: border-box;
   font-size: 16px;
+  background: var(--surface-strong);
+  color: var(--text-primary);
 }
 
 .card input:not([type="checkbox"]):last-of-type {
   margin-bottom: 0;
 }
 
-.card select {
-  background-image: url("/arrow-down-icon-black.png");
-  background-repeat: no-repeat;
-  background-position: right 2% center;
-  background-size: 24px 24px;
-  padding-right: 34px;
-}
-
 .card button {
-  background: #007bff;
+  background: linear-gradient(120deg, var(--accent), var(--accent-strong));
   color: #fff;
   border: none;
-  padding: 10px 20px;
-  border-radius: 4px;
+  padding: 11px 18px;
+  border-radius: 12px;
   cursor: pointer;
-  font-size: 16px;
-  transition: background 0.3s ease;
+  font-size: 15px;
+  font-weight: 700;
+  transition: transform 0.15s ease, box-shadow 0.2s ease, filter 0.2s ease;
   margin-right: 10px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.28);
 }
 
 .card button:last-of-type {
@@ -66,29 +63,44 @@
 }
 
 .card button:hover {
-  background: #0056b3;
+  filter: brightness(1.02);
+  transform: translateY(-1px);
 }
 
 .card p {
-  background: #f8f9fa;
-  padding: 10px;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  margin: 15px 0 8px 0;
+  background: var(--surface-strong);
+  padding: 12px 14px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  margin: 14px 0 6px 0;
+  color: var(--text-primary);
 }
 
-.card p:nth-child(even) {
-  background: #e9ecef;
+.card > div:last-child {
+  margin-top: auto;
+}
+
+.sorting-step-card {
+  min-height: 100%;
 }
 
 .card-wrapper h4 {
   margin: 0;
+  color: var(--text-primary);
 }
 
 .step-wrapper {
-  max-height: 500px;
-  overflow-x: hidden;
-  overflow-y: scroll;
+  margin-top: 12px;
+  max-height: 420px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.step-wrapper p {
+  margin: 0;
+  font-size: 14px;
 }
 
 .checkbox-wrapper {
@@ -105,39 +117,56 @@
   align-items: center;
   width: 100%;
   justify-content: space-between;
-  margin: 5px 0;
+  margin: 6px 0 12px;
 }
 
-.switch-container>span {
+.switch-container > span {
   margin-right: 10px;
+  font-weight: 600;
+  color: var(--text-primary);
 }
 
 .switches {
-  margin: 15px 0;
+  margin: 10px 0 6px;
 }
 
 .sort-popup-background {
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.5);
+  inset: 0;
+  background: rgba(15, 23, 42, 0.6);
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 9999999;
-  backdrop-filter: blur(5px);
-  -webkit-backdrop-filter: blur(5px);
+  z-index: 9999;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  padding: 16px;
 }
 
 .sort-popup-content {
-  background: #fff;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background: var(--surface);
+  border-radius: 16px;
+  box-shadow: var(--shadow-lg);
   position: relative;
-  width: 80vw;
+  width: min(960px, 100%);
   height: fit-content;
+  padding: 18px 18px 6px;
+  border: 1px solid var(--border);
+}
+
+.sort-popup-content .sort-card {
+  background: transparent;
+  border: none;
+  box-shadow: none;
+}
+
+.sort-popup-content .sort-card h4 {
+  display: none;
+}
+
+.sort-popup-content .sort-bar-card {
+  background: var(--surface-strong);
+  border: 1px solid var(--border);
 }
 
 .sort-popup-content .sort-bar-container {
@@ -151,108 +180,59 @@
   background: none;
   border: none;
   cursor: pointer;
-  font-size: 24px;
-  transition: color 0.3s ease;
-  z-index: 9999999;
+  font-size: 26px;
+  transition: color 0.2s ease, transform 0.2s ease;
+  z-index: 2;
 }
 
 .sort-popup-content .close-button svg:hover {
   color: #f42b2b;
+  transform: scale(1.02);
 }
 
 .card .previous-arrays {
   position: absolute;
-  z-index: 9999999;
-  width: calc(100% - 40px);
-  background-color: #eee;
-  max-height: 155px;
-  overflow-x: hidden;
-  overflow-y: scroll;
+  z-index: 10;
+  width: calc(100% - 44px);
+  background-color: var(--surface);
+  max-height: 180px;
+  overflow-y: auto;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  box-shadow: var(--shadow-sm);
 }
 
 .card .previous-array {
   width: 100%;
   background-color: transparent;
-  padding: 10px;
+  padding: 10px 12px;
+  cursor: pointer;
 }
 
 .card .previous-array:hover {
-  background-color: #d1d1d1;
+  background-color: color-mix(in srgb, var(--accent) 8%, transparent);
 }
 
-.step-wrapper {
-  margin-top: 15px;
-}
-
-.step-wrapper > p:first-of-type {
-  margin-top: 0;
-}
-
-.step-wrapper > p:last-of-type {
-  margin-bottom: 0;
-}
-
-@media only screen and (max-width: 1024px) {
+@media (max-width: 720px) {
   .card-wrapper {
-    flex-direction: column;
+    grid-template-columns: 1fr;
   }
 }
-
-@media only screen and (max-width: 768px) {}
-
-@media only screen and (max-width: 480px) {}
 
 @media (prefers-color-scheme: dark) {
   .card {
-    background: #1e1e1e;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-    color: #ffffff;
-    border: 1px solid #2c2c2c;
-  }
-
-  .card p {
-    background: #2b2b2b;
-    border: 1px solid #333333;
-  }
-
-  .card p:nth-child(even) {
-    background: #202020;
-  }
-
-  .card select,
-  .card input:not([type="checkbox"]) {
-    background-color: #333333;
-    border-color: #555555;
-    color: #ffffff;
-  }
-
-  .card select {
-    background-image: url("/arrow-down-icon-white.png");
+    box-shadow: var(--shadow-md);
   }
 
   .card button {
-    background: #007bff;
-    color: #ffffff;
-  }
-
-  .card button:hover {
-    background: #0056b3;
-  }
-
-  .sort-popup-background {
-    background: rgba(0, 0, 0, 0.8);
-  }
-
-  .sort-popup-content {
-    background: #1e1e1e;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-  }
-
-  .card .previous-arrays {
-    background-color: #333333;
+    box-shadow: 0 12px 32px rgba(99, 102, 241, 0.35);
   }
 
   .card .previous-array:hover {
-    background-color: #444444;
+    background-color: color-mix(in srgb, var(--accent) 18%, transparent);
+  }
+
+  .sort-popup-background {
+    background: rgba(0, 0, 0, 0.7);
   }
 }

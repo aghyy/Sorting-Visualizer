@@ -75,30 +75,6 @@ export const handleCopy = (setCopied, codeElement) => {
   }, 2000);
 }
 
-const unloadParticles = (particlesContainer, setBgKey) => {
-  if (particlesContainer && particlesContainer.particles) {
-    particlesContainer.particles.destroy();
-    setBgKey(0);
-  }
-};
-
-export const loadParticles = (setKey) => {
-  setKey(prevKey => prevKey + 1);
-};
-
-export const handleAnimatedBg = (isChecked, setIsChecked, setBgKey, currentContainer) => {
-  if (isChecked) {
-    window.localStorage.setItem('animatedBg', 'false');
-    document.body.classList.add('body-bg');
-    unloadParticles(currentContainer, setBgKey);
-  } else {
-    window.localStorage.setItem('animatedBg', 'true');
-    document.body.classList.remove('body-bg');
-    loadParticles(setBgKey);
-  }
-  setIsChecked(!isChecked);
-}
-
 export const removeStringFromArray = (arr, str) => {
   return arr.filter(item => item !== str);
 }

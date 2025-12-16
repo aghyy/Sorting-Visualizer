@@ -15,8 +15,8 @@
 .bar-tooltip {
 	display: none;
 	position: absolute;
-	background-color: #f2f2f2;
-	border: 1px solid #d1d1d1;
+	background-color: var(--surface);
+	border: 1px solid var(--border);
 	padding: 10px 15px 8px;
 	border-radius: 0.3em;
 	left: 50%;
@@ -24,7 +24,7 @@
 	z-index: 1;
 	align-items: center;
 	justify-content: center;
-	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+	box-shadow: var(--shadow-sm);
 	pointer-events: none;
 }
 
@@ -36,7 +36,7 @@
 	margin-left: -5px;
 	border-width: 5px;
 	border-style: solid;
-	border-color: #d1d1d1 transparent transparent transparent;
+	border-color: var(--border) transparent transparent transparent;
 }
 
 .bar-2d:hover + .bar-tooltip {
@@ -129,11 +129,11 @@ input[type='number'] {
 
 @media (prefers-color-scheme: dark) {
     .bar-tooltip {
-		background-color: #131313;
-		border: 1px solid #2c2c2c;
+		background-color: var(--surface);
+		border: 1px solid var(--border);
 	}
 
 	.bar-tooltip::after {
-		border-color: #2c2c2c transparent transparent transparent;
+		border-color: var(--border) transparent transparent transparent;
 	}
 }

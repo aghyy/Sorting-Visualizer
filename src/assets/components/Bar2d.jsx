@@ -3,12 +3,10 @@ import React, { memo } from 'react';
 const Bar2d = memo(({ value, color, barHeight, length, index }) => {
     const hidden = (() => {
         if (length < 60) return false;
-        if (length < 100) return index % 2 === 1;
-        if (length < 140) return index % 3 !== 0;
-        if (length < 180) return index % 4 !== 0;
-        if (length < 220) return index % 5 !== 0;
-        if (length < 260) return index % 6 !== 0;
-        return index % 7 !== 0;
+        if (length < 90) return index % 2 === 1;
+        if (length < 120) return index % 3 !== 0;
+        if (length < 180) return true;
+        return true;
     })();
 
     const colors = [
@@ -17,6 +15,8 @@ const Bar2d = memo(({ value, color, barHeight, length, index }) => {
         ['rgba(131, 232, 90, 0.5)', 'rgba(131, 232, 90, 0.2)'],
         ['rgba(235, 123, 19, 0.5)', 'rgba(235, 123, 19, 0.2)'],
     ];
+
+    const barWidthPx = Math.max(4, Math.min(24, Math.floor(600 / length)));
 
     const barStyle = {
         height: `${barHeight > 0 ? barHeight : 0}%`,
@@ -39,8 +39,9 @@ const Bar2d = memo(({ value, color, barHeight, length, index }) => {
         display: 'flex',
         flexDirection: 'column',
         gap: '5px',
-        width: `calc((100% - ((${length - 1}) * 2px)) / ${length})`,
+        width: `${barWidthPx}px`,
         position: 'relative',
+        flex: `0 0 ${barWidthPx}px`,
     };
 
     const tooltipStyle = {
@@ -53,9 +54,11 @@ const Bar2d = memo(({ value, color, barHeight, length, index }) => {
                 <div style={barStyle}></div>
             </div>
             <div className="bar-tooltip" style={tooltipStyle}>{value}</div>
-            <div className='bar-2d-value' style={barValueStyle}>
-                {value}
-            </div>
+            {!hidden && (
+                <div className='bar-2d-value' style={barValueStyle}>
+                    {value}
+                </div>
+            )}
         </div>
     );
 });

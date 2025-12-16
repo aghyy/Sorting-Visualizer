@@ -1,30 +1,31 @@
 .sort-card {
-	z-index: 999;
+	z-index: 2;
 	pointer-events: none;
-	background-color: #f2f2f2;
-	border: 1px solid #d1d1d1;
-	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-	border-radius: 10px;
+	background-color: var(--surface);
+	border: 1px solid var(--border);
+	box-shadow: var(--shadow-md);
+	border-radius: var(--radius);
 	width: 100%;
 	position: relative;
 }
 
 .sort-card-content {
-	padding: 35px 40px 15px;
-	height: calc(100% - 48px - 50px);
+	padding: 26px 28px 18px;
 	display: flex;
 	flex-direction: column;
-	justify-content: space-between;
+	justify-content: center;
 	align-items: center;
-	width: calc(100% - 80px);
+	gap: 18px;
+	width: 100%;
 }
 
 .sort-card h4 {
 	margin: 0;
-	background-color: #d1d1d1;
-	border-top-left-radius: 10px;
-	border-top-right-radius: 10px;
-	padding: 15px 25px;
+	padding: 14px 22px;
+	background: linear-gradient(120deg, color-mix(in srgb, var(--accent) 16%, transparent), color-mix(in srgb, var(--accent-strong) 12%, transparent));
+	border-top-left-radius: var(--radius);
+	border-top-right-radius: var(--radius);
+	color: var(--text-primary);
 }
 
 .sort-card-frame {
@@ -39,36 +40,51 @@
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	height: 220px;
+	height: 240px;
+	width: 100%;
 }
 
 .sort-bar-card {
-	border-radius: 10px;
+	border-radius: 12px;
 	pointer-events: auto;
 	width: 100%;
-	padding: 20px 0px 5px 0px;
+	padding: 14px 8px 6px;
+	background: var(--surface-strong);
+	border: 1px solid var(--border);
+	overflow-x: auto;
+}
+
+.bars-track {
+	display: flex;
+	align-items: flex-end;
+	gap: 2px;
+	min-height: 200px;
 }
 
 .sort-card-control-wrapper {
-	display: flex;
-	justify-content: space-between;
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
 	align-items: center;
+	gap: 14px;
 	width: 100%;
 }
 
 .controller {
-	font-size: 11px;
-	padding: 1em;
-	gap: 5px;
+	font-size: 13px;
+	padding: 0.85em 1em;
+	gap: 6px;
 	border: none;
 	height: 3em;
-	border-radius: 5px;
-	background-color: #007bff;
+	border-radius: 12px;
+	background: linear-gradient(120deg, var(--accent), var(--accent-strong));
 	color: #fff;
 	cursor: pointer;
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	font-weight: 700;
+	box-shadow: 0 12px 30px rgba(0, 0, 0, 0.28);
+	transition: transform 0.15s ease, box-shadow 0.2s ease, filter 0.2s ease;
 }
 
 .sort-card-controls-buttons {
@@ -76,9 +92,9 @@
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	border-radius: 10px;
+	border-radius: 12px;
 	pointer-events: auto;
-	gap: .5em;
+	gap: .6em;
 }
 
 .sort-card-controls {
@@ -88,21 +104,23 @@
 }
 
 .controller:disabled {
-	background-color: #ccc;
-	color: #555;
+	background: var(--surface-strong);
+	color: var(--text-muted);
 	cursor: not-allowed;
+	box-shadow: none;
 }
 
 .controller:hover:not(:disabled) {
-	background-color: #0056b3;
+	filter: brightness(1.02);
+	transform: translateY(-1px);
 }
 
 .controller:active:not(:disabled) {
-	transform: scale(0.95);
+	transform: scale(0.98);
 }
 
 .sort-card-mid-buttons svg {
-	transform: scale(1.4);
+	transform: scale(1.2);
 }
 
 .i-control {
@@ -110,22 +128,28 @@
 	display: flex;
 	align-items: center;
 	gap: 10px;
+	background: var(--surface-strong);
+	padding: 10px 12px;
+	border-radius: 12px;
+	border: 1px solid var(--border);
+	pointer-events: auto;
 }
 
 .i-control p {
 	min-width: fit-content;
-	font-size: .8rem;
+	font-size: .85rem;
 	margin-block-start: 0;
 	margin-block-end: 0;
+	color: var(--text-primary);
 }
 
 .sort-alert {
-	color: #f42b2b;
+	color: #f87171;
 	display: flex;
 	align-items: center;
-	gap: 10px;
-	font-size: .8em;
-	margin: 10px 0 0 10px;
+	gap: 8px;
+	font-size: .85em;
+	margin: 6px 0 0 6px;
 	position: absolute;
 }
 
@@ -140,14 +164,16 @@
 .shuffle-btn:not(:disabled):hover+.shuffle-tooltip {
 	display: block;
 	position: absolute;
-	background-color: #d1d1d1;
-	color: #333;
+	background-color: var(--surface);
+	color: var(--text-primary);
 	padding: 10px;
-	border-radius: 5px;
+	border-radius: 10px;
 	min-width: max-content;
 	top: 60px;
 	left: 1rem;
 	transform: translateX(-50%);
+	border: 1px solid var(--border);
+	box-shadow: var(--shadow-sm);
 }
 
 .shuffle-tooltip::after {
@@ -158,27 +184,34 @@
 	margin-left: -5px;
 	border-width: 5px;
 	border-style: solid;
-	border-color: transparent transparent #d1d1d1 transparent;
+	border-color: transparent transparent var(--border) transparent;
+}
+
+@media (max-width: 680px) {
+	.sort-card-control-wrapper {
+		grid-template-columns: 1fr;
+	}
+
+	.sort-card-controls-buttons {
+		justify-content: flex-start;
+	}
 }
 
 @media (prefers-color-scheme: dark) {
-	.sort-card {
-		background-color: #1e1e1e;
-		box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-		color: #ffffff;
-		border: 1px solid #2c2c2c;
+	.sort-card h4 {
+		color: var(--text-primary);
 	}
 
-	.sort-card h4 {
-		background-color: #131313;
+	.controller:disabled {
+		color: var(--text-muted);
 	}
 
 	.shuffle-btn:not(:disabled):hover+.shuffle-tooltip {
-		background-color: #333;
-		color: #fff;
+		background-color: var(--surface-strong);
+		color: var(--text-primary);
 	}
 	
 	.shuffle-tooltip::after {
-		border-color: transparent transparent #333 transparent;
+		border-color: transparent transparent var(--border) transparent;
 	}
 }

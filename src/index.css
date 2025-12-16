@@ -1,77 +1,66 @@
-body {
-    font-family: 'Arial', sans-serif;
-    background-color: #f4f4f9;
-    color: #333;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    margin: 0;
-    overflow: hidden;
-}
-
-body.dotted {
-    background-image: radial-gradient(#000 0.5px, transparent 0.5px), radial-gradient(#000 0.5px, #f4f4f9 0.5px);
-}
-
-.body-bg {
-    background-color: #f4f4f9;
-    background-size: 20px 20px;
-    background-position: 0 0, 10px 10px;
-}
-
-a:link,
-a:visited,
-a:hover,
-a:active {
-    text-decoration: none;
-    color: inherit;
+:root {
+    --surface: #ffffff;
+    --surface-strong: #f4f6fb;
+    --border: #e5e7eb;
+    --text-primary: #0f172a;
+    --text-muted: #6b7280;
+    --accent: #6366f1;
+    --accent-strong: #4f46e5;
+    --bg: radial-gradient(circle at 20% 20%, rgba(99, 102, 241, 0.08), transparent 30%), radial-gradient(circle at 80% 0%, rgba(14, 165, 233, 0.08), transparent 25%), linear-gradient(145deg, #eef2f7 0%, #f9fbff 60%, #eef2f7 100%);
+    --radius: 16px;
+    --shadow-sm: 0 10px 30px rgba(15, 23, 42, 0.06);
+    --shadow-md: 0 12px 40px rgba(15, 23, 42, 0.09);
+    --shadow-lg: 0 18px 60px rgba(15, 23, 42, 0.12);
 }
 
 * {
-    scrollbar-width: none;
-    -ms-overflow-style: none;
-    overflow: -moz-scrollbars-none;
-    user-select: none;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    -o-user-select: none;
+    box-sizing: border-box;
 }
 
-::-webkit-scrollbar {
-    display: none;
+body {
+    margin: 0;
+    font-family: 'Inter', 'SF Pro Display', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: var(--bg);
+    color: var(--text-primary);
+    line-height: 1.6;
+    min-height: 100vh;
 }
 
-p, span, div, h1, h2, h3, h4, h5, h6, ul, ol, li {
-    cursor: default;
+a {
+    color: inherit;
+    text-decoration: none;
 }
 
-#particles-js {
-    position: fixed;
-    width: 100vw;
-    height: 100vh;
-    top: 0;
-    left: 0;
-    background-color: #1d1d1d;
-    background-image: url("");
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: 50% 50%;
-    z-index: -1;
+button {
+    font-family: inherit;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+::selection {
+    background: color-mix(in srgb, var(--accent) 25%, transparent);
 }
 
 @media (prefers-color-scheme: dark) {
+    :root {
+        --surface: #0f172a;
+        --surface-strong: #111827;
+        --border: #1f2937;
+        --text-primary: #e5e7ff;
+        --text-muted: #9ca3af;
+        --accent: #7c80ff;
+        --accent-strong: #6366f1;
+        --bg: radial-gradient(circle at 10% 10%, rgba(99, 102, 241, 0.18), transparent 28%), radial-gradient(circle at 90% 0%, rgba(14, 165, 233, 0.12), transparent 26%), linear-gradient(145deg, #0b1021 0%, #0f172a 60%, #0b1021 100%);
+        --shadow-sm: 0 10px 30px rgba(0, 0, 0, 0.4);
+        --shadow-md: 0 12px 40px rgba(0, 0, 0, 0.45);
+        --shadow-lg: 0 18px 60px rgba(0, 0, 0, 0.5);
+    }
+
     body {
-        background-color: #121212;
-        color: #fff;
-    }
-
-    .body-bg {
-        background-color: #121212;
-    }
-
-    body.dotted {
-        background-image: radial-gradient(#333 0.5px, transparent 0.5px), radial-gradient(#333 0.5px, #121212 0.5px);
+        background: var(--bg);
+        color: var(--text-primary);
     }
 }
